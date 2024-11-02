@@ -67,6 +67,8 @@ Go to System Preferences > Users & Groups > Login Items for the Office TV accoun
 
 Add the AutoSlideNetCheck script to automatically launch the presentation on startup.
 
+Don't forget to change the URL to match the slide to be displayed.
+
 6. Lock System Preferences
 
 System Preferences > Security & Privacy: Adjust Accessibility and Privacy settings as needed for AutoSlideNetCheck.
