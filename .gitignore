@@ -1,0 +1,31 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS Finder attributes
+Icon
+.DS_Store
+
+# Editor settings and logs
+*.sublime-workspace
+*.sublime-project
+.vscode/
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# General temporary files
+*.tmp
+*.bak
+*.swp
+
+# AutoSlideNetCheck script logs (customize if applicable)
+*.log
+*.cache
