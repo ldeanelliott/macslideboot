@@ -1,50 +1,94 @@
 AutoSlideNetCheck Setup Guide
+
 This guide outlines the setup of a Mac running macOS Sequoia to automatically display a Google Slides presentation in full screen with network checks. This configuration will boot and shut down the Mac on a weekday schedule and hide the mouse cursor for a seamless presentation experience.
 
 Table of Contents
+
 Requirements
 Installation
 Configuration Steps
 System Reliability Enhancements
 Final Steps
 License
+
+
 Requirements
+
 Mac running macOS Sequoia
+
 Google Chrome installed
+
 Admin account for initial setup
+
+
 Installation
+
 Clean Install of macOS Sequoia: Wipe the Mac and perform a clean installation of macOS Sequoia.
+
 Create Admin Account: Set up an admin account named Office TV with a secure password for the initial setup.
+
+
 Configuration Steps
+
 1. Set Up Auto-Login for Office TV
+
 Enable auto-login for the Office TV user account:
+
+
 System Preferences > Users & Groups > Login Options
+
 Set Office TV to auto-login.
+
 2. Disable Notifications
+
 System Preferences > Notifications & Focus: Turn off all notifications and enable Do Not Disturb on a schedule from 6 AM to 5 PM.
+
 3. Schedule Power On and Shut Down
+
 Open Terminal and use pmset to configure boot and shutdown times:
+
 bash
 Copy code
 sudo pmset repeat wakeorpoweron MTWRF 07:30:00 shutdown MTWRF 16:00:00
-4. Set Energy Saver Settings
-Go to System Preferences > Energy Saver:
-Uncheck Prevent computer from sleeping automatically when the display is off.
-Set Display Sleep to Never during active hours.
-Enable Restart automatically after power failure.
-5. Add AutoSlideNetCheck as a Login Item
-Go to System Preferences > Users & Groups > Login Items for the Office TV account.
-Add the AutoSlideNetCheck script to automatically launch the presentation on startup.
-6. Lock System Preferences
-System Preferences > Security & Privacy: Adjust Accessibility and Privacy settings as needed for AutoSlideNetCheck.
-Lock System Preferences after setup to prevent changes.
-System Reliability Enhancements
-Auto Power Recovery: Ensure the Mac will restart automatically after a power failure.
-AutoSlideNetCheck Retry Logic: The script includes retry logic to check for internet connectivity.
-Final Steps
-Convert Office TV Account to Standard:
-Set up a separate admin account if needed.
-Convert Office TV to a standard account for security: System Preferences > Users & Groups > Change Role to Standard.
-License
-This project is licensed under the MIT License. See LICENSE for details.
 
+4. Set Energy Saver Settings
+
+Go to System Preferences > Energy Saver:
+
+Uncheck Prevent computer from sleeping automatically when the display is off.
+
+Set Display Sleep to Never during active hours.
+
+Enable Restart automatically after power failure.
+
+5. Add AutoSlideNetCheck as a Login Item
+
+Go to System Preferences > Users & Groups > Login Items for the Office TV account.
+
+Add the AutoSlideNetCheck script to automatically launch the presentation on startup.
+
+6. Lock System Preferences
+
+System Preferences > Security & Privacy: Adjust Accessibility and Privacy settings as needed for AutoSlideNetCheck.
+
+Lock System Preferences after setup to prevent changes.
+
+System Reliability Enhancements
+
+Auto Power Recovery: Ensure the Mac will restart automatically after a power failure.
+
+AutoSlideNetCheck Retry Logic: The script includes retry logic to check for internet connectivity.
+
+
+Final Steps
+
+Convert Office TV Account to Standard:
+
+Set up a separate admin account if needed.
+
+Convert Office TV to a standard account for security: System Preferences > Users & Groups > Change Role to Standard.
+
+
+License
+
+This project is licensed under the MIT License. See LICENSE for details.
