@@ -8,7 +8,7 @@ START_TIME="07:30:00"
 SHUTDOWN_TIME="16:10:00" # There's a 10 minute popup for the shutdown notification)
 DND_START="6:00"
 DND_END="17:00" # Adjust Do Not Disturb time (keep it overlapping on time)
-SCRIPT_PATH="/path/to/AutoSlideNetCheck.applescript" # Update to the actual path of AutoSlideNetCheck script
+APP_PATH="/path/to/AutoSlideNetCheck.app" # Update to the actual path of AutoSlideNetCheck app
 
 echo "Starting AutoSlideNetCheck installation script..."
 
@@ -30,7 +30,7 @@ killall NotificationCenter
 
 # Step 4: Add AutoSlideNetCheck script to Login Items
 echo "Adding AutoSlideNetCheck script as a login item..."
-osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"$SCRIPT_PATH\", hidden:true}"
+osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"$APP_PATH\", hidden:true}"
 
 # Step 5: Configure Energy Saver settings
 echo "Configuring Energy Saver settings..."
