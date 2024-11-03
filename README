@@ -2,30 +2,45 @@
 
 This guide provides a complete setup for running the **AutoSlideNetCheck** script on a Mac with a fresh installation of macOS Sequoia. This setup is ideal for an office or display device that should automatically log in, run a Google Slides presentation in full-screen mode, and check for internet connectivity.
 
+
 ## Requirements
 - A Mac running macOS Sequoia.
 - User account **"Office TV"** for the display machine.
 - Google Chrome installed (assumed included in the JAMF profile).
 
+
+
 ---
+
+
 
 ## Installation
 
+
+
 ### 1. Run the Installation Script (Recommended)
+
+
 
 To streamline the setup process, use the provided installation script. This script automates configuration steps like scheduling power on/off times, enabling auto-login, setting notifications, and adding the AutoSlideNetCheck script as a login item.
 
 **Script:** [install_auto_slide.sh](install_auto_slide.sh)
 
+
+
 #### Run the script:
+
 1. Save the script on your Mac, naming it `install_auto_slide.sh`.
 2. Make the script executable by opening a terminal and running:
-   ```bash
-   chmod +x install_auto_slide.sh
+
+chmod +x install_auto_slide.sh
+
 Run the script with sudo privileges:
-bash
-Copy code
+
 sudo ./install_auto_slide.sh
+
+
+
 The script will automatically:
 
 Schedule power on/off for weekdays (7:30 AM on, 4:00 PM off).
@@ -33,85 +48,74 @@ Set up auto-login for the Office TV user.
 Disable notifications and configure Do Not Disturb hours.
 Add AutoSlideNetCheck as a login item.
 Configure Energy Saver settings and lock certain System Preferences.
+
+
+
+
 2. Manual Configuration Steps (In Case of Script Errors)
-If any issues arise with the script, you can perform each configuration step manually. Below are detailed explanations of each step in the process.
 
-Step 1: Set Scheduled Power On and Shutdown Times
-Command:
 
-bash
-Copy code
-sudo pmset repeat wakeorpoweron MTWRF 07:30:00 shutdown MTWRF 16:00:00
-This command configures the Mac to automatically power on at 7:30 AM and shut down at 4:00 PM on weekdays (Monday through Friday).
 
-Step 2: Enable Auto-Login for "Office TV" User
-Enable auto-login to the Office TV user account to ensure that the presentation starts without manual login.
+### 1. Perform a Clean Install of macOS
+   - Wipe the Mac and perform a fresh installation of **macOS Sequoia**.
 
-Command:
+### 2. Set Up Initial Admin Account
+   - Create an admin account named **Office TV** with a secure password for setup purposes.
 
-bash
-Copy code
-sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser "Office TV"
-Step 3: Disable Notifications and Set Do Not Disturb
-This disables all notifications to prevent interruptions during presentation mode.
+### 3. Configure Auto-Login for Office TV
+   - Go to **System Preferences > Users & Groups > Login Options**.
+   - Enable auto-login for **Office TV**.
 
-Commands:
+---
 
-Enable Do Not Disturb:
-bash
-Copy code
-defaults -currentHost write com.apple.notificationcenterui doNotDisturb -bool true
-Set Do Not Disturb hours (e.g., 6 AM - 5 PM):
-bash
-Copy code
-defaults write com.apple.ncprefs.plist dndStart -int 360  # 6 AM in minutes
-defaults write com.apple.ncprefs.plist dndEnd -int 1020   # 5 PM in minutes
-Restart NotificationCenter to apply changes:
-bash
-Copy code
-killall NotificationCenter
-Step 4: Add AutoSlideNetCheck Script to Login Items
-Ensure that AutoSlideNetCheck runs at login by adding it as a login item.
+## Configuration Details
 
-Command:
+### 4. Disable Notifications
+   - Navigate to **System Preferences > Notifications & Focus** and turn off all notifications.
+   - Enable **Do Not Disturb** on a schedule from **6 AM to 5 PM**.
 
-bash
-Copy code
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/path/to/AutoSlideNetCheck.applescript", hidden:true}'
-Replace /path/to/AutoSlideNetCheck.applescript with the actual path to the AutoSlideNetCheck script.
+### 5. Set Scheduled Power On and Off
+   - Open **Terminal** and configure `pmset`:
+     ```bash
+     sudo pmset repeat wakeorpoweron MTWRF 07:30:00 shutdown MTWRF 16:00:00
+     ```
 
-Step 5: Configure Energy Saver Settings
-Prevent the Mac from sleeping during active hours, and set it to automatically restart after a power failure.
+### 6. Adjust Energy Saver Settings
+   - In **System Preferences > Energy Saver**:
+     - Uncheck **Prevent computer from sleeping automatically when the display is off**.
+     - Set **Display Sleep** to **Never** during active hours.
+     - Enable **Restart automatically after power failure**.
 
-Commands:
+### 7. Add AutoSlideNetCheck Script as a Login Item
+   - Go to **System Preferences > Users & Groups > Login Items** under the **Office TV** account.
+   - Add the **AutoSlideNetCheck** script to launch on login.
 
-#Set the display to never sleep:      sudo pmset -a displaysleep 0
-Enable auto-restart after power failure:
-bash
-Copy code
-sudo pmset -a autorestart 1
-Prevent the Mac from sleeping when the display is off:
-bash
-Copy code
-sudo pmset -a sleep 0
-Step 6: Lock System Preferences for Security
-Lock Accessibility and Privacy settings to prevent unauthorized changes.
+### 8. Lock System Preferences
+   - Adjust **Accessibility** and **Privacy** settings as required by **AutoSlideNetCheck** in **System Preferences > Security & Privacy**.
+   - Lock **System Preferences** after configuration to prevent changes.
 
-Commands:
+---
 
-bash
-Copy code
-sudo security authorizationdb write system.preferences "allow"
-sudo security authorizationdb write system.preferences.security "allow"
-Final Step: Convert Office TV User to Standard
-After configuration, convert the Office TV user account to a Standard account for security.
+## System Reliability Enhancements
+1. **Enable Auto Power Recovery**: Ensures the Mac restarts automatically after a power failure.
+2. **AutoSlideNetCheck Retry Logic**: The script includes a retry mechanism to verify internet connectivity.
 
-Command:
+---
 
-bash
-Copy code
-sudo dseditgroup -o edit -d "Office TV" -t user admin
+## Final Steps
 
+### Convert Office TV to a Standard User Account
+   - If needed, create a new admin account.
+   - Go to **System Preferences > Users & Groups** and change **Office TV** to a **Standard** account for security.
+
+---
+
+## Usage Instructions
+1. Restart the Mac to begin using **AutoSlideNetCheck**.
+2. The script will check internet connectivity and automatically open the Google Slides presentation in full screen.
+3. If there is no internet after several retries, a notification will alert you to check the network.
+
+---
 
 Troubleshooting
 If you encounter any issues with the setup:
@@ -121,8 +125,11 @@ Verify Permissions: Ensure that the script and configuration commands are execut
 Restart Mac: Sometimes, changes may require a system restart to take full effect.
 
 
+
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+
 
 Contributing
 We welcome contributions to improve this setup guide. Please open a pull request if you have suggestions or fixes.
