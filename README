@@ -18,7 +18,36 @@ This guide provides a complete setup for running the **AutoSlideNetCheck** scrip
 
 
 
-### 1. Run the Installation Script (Recommended)
+### 1. Create AutoSlideNetCheck as an Application
+
+To ensure the script runs smoothly with the necessary permissions, follow these steps to convert it into an application:
+
+1. **Open Script Editor**:
+   - Go to **Applications > Utilities > Script Editor**.
+
+2. **Create a New Script**:
+   - In Script Editor, paste the entire content of the **AutoSlideNetCheck** script.
+
+3. **Export as an Application**:
+   - Click on **File > Export**.
+   - In the save dialog, choose the following:
+     - **File Format**: Choose **Application**.
+     - **Save As**: Name it `AutoSlideNetCheck`.
+     - **Where**: Choose a location (e.g., Desktop).
+   - Ensure **"Stay open after run handler"** is unchecked, and click **Save**.
+
+4. **Move the Application**:
+   - Move the newly created `AutoSlideNetCheck` application to the **Applications** folder.
+
+5. **Grant Accessibility Permissions**:
+   - Open **System Preferences** and select **Security & Privacy**.
+   - Navigate to the **Privacy** tab and select **Accessibility** from the left sidebar.
+   - If necessary, click the padlock icon to unlock settings and enter your administrator password.
+   - Drag the **AutoSlideNetCheck** application into the list of allowed applications.
+
+
+
+### 2. Run the Installation Script (Recommended)
 
 
 
