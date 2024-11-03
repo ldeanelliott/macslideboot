@@ -125,6 +125,15 @@ Verify Permissions: Ensure that the script and configuration commands are execut
 Restart Mac: Sometimes, changes may require a system restart to take full effect.
 
 
+Accessibility Permissions
+For the AutoSlideNetCheck script to function properly, it must have accessibility permissions. Follow these steps to grant access:
+
+1.Open System Preferences and select Security & Privacy.
+2.Navigate to the Privacy tab and select Accessibility from the left sidebar.
+3.If necessary, click the padlock icon to unlock settings and enter your administrator password.
+4.Drag the AutoSlideNetCheck script or the application running it (e.g., Terminal or Script Editor) into the list of allowed applications.
+
+
 
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
