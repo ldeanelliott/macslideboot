@@ -13,6 +13,11 @@ This guide provides a complete setup for running the **AutoSlideNetCheck** scrip
 ---
 
 
+***Variables that bust be changed to for each setup:***
+slideURL in AutoSlideNetCheck.scpt.
+APP_PATH in install_auto_slide.sh
+
+
 
 ## Installation
 
