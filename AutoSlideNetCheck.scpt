@@ -1,3 +1,10 @@
+-- URL of the Google Slides presentation
+set slideURL to "https://docs.google.com/presentation/d/e/2PACX-1vTlIcaxOuheKgb8h2Pqn-UIH6bsmpNIIlpsACUdtD-xS7HafSRZA2LLLxylVFk_3c2xZK9D48fX8sK6/pub?start=true&loop=true&delayms=10000"
+
+-- Set the number of retries and delay between retries
+set maxRetries to 5
+set delayTime to 10 -- 10 seconds between retries
+
 -- Function to check for internet connectivity
 on checkInternetConnection()
     try
@@ -42,12 +49,6 @@ on dismissAllNotifications()
     end tell
 end dismissAllNotifications
 
--- URL of the Google Slides presentation
-set slideURL to "https://docs.google.com/presentation/d/e/2PACX-1vTlIcaxOuheKgb8h2Pqn-UIH6bsmpNIIlpsACUdtD-xS7HafSRZA2LLLxylVFk_3c2xZK9D48fX8sK6/pub?start=true&loop=true&delayms=10000"
-
--- Set the number of retries and delay between retries
-set maxRetries to 5
-set delayTime to 10 -- 10 seconds between retries
 
 -- Check for internet connection with retry mechanism
 if checkConnectionWithRetry(maxRetries, delayTime) then
