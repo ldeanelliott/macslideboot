@@ -5,9 +5,9 @@
 # Variables
 USER="Office TV" # Adjust to the target user name if different
 START_TIME="07:30:00"
-SHUTDOWN_TIME="16:00:00"
+SHUTDOWN_TIME="16:10:00" # There's a 10 minute popup for the shutdown notification)
 DND_START="6:00"
-DND_END="17:00"
+DND_END="17:00" # Adjust Do Not Disturb time (keep it overlapping on time)
 SCRIPT_PATH="/path/to/AutoSlideNetCheck.applescript" # Update to the actual path of AutoSlideNetCheck script
 
 echo "Starting AutoSlideNetCheck installation script..."
