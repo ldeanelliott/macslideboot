@@ -1,81 +1,102 @@
 # AutoSlideNetCheck Setup Guide
 
-AutoSlideNetCheck is a setup for a Mac running macOS Sequoia, designed to automatically display a Google Slides presentation in full screen with network connectivity checks. It boots and shuts down on a schedule and hides the mouse cursor for a seamless presentation experience.
+AutoSlideNetCheck configures a Mac to automatically display a Google Slides presentation in full screen, check for network connectivity, and manage scheduled power operations. This guide will help you set up AutoSlideNetCheck for a seamless presentation experience.
+
+---
 
 ## Table of Contents
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Configuration Steps](#configuration-steps)
-- [System Reliability Enhancements](#system-reliability-enhancements)
-- [Final Steps](#final-steps)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+- [**Overview**](#overview)
+- [**Requirements**](#requirements)
+- [**Installation Steps**](#installation-steps)
+- [**Configuration Details**](#configuration-details)
+- [**System Reliability Enhancements**](#system-reliability-enhancements)
+- [**Usage Instructions**](#usage-instructions)
+- [**Contributing**](#contributing)
+- [**License**](#license)
+- [**Acknowledgments**](#acknowledgments)
+
+---
+
+## Overview
+This guide outlines the setup of a Mac to display a Google Slides presentation automatically using **AutoSlideNetCheck**. Setup includes auto-login, scheduled boot/shutdown, and internet connectivity verification.
+
+---
 
 ## Requirements
-
-- Mac running macOS Sequoia
+- **macOS Sequoia** installed on a Mac
 - **Google Chrome** installed
-- Admin account for initial setup
+- **Admin account** for initial setup
 
-## Installation
+---
 
-1. **Clean Install of macOS Sequoia**: Wipe the Mac and perform a clean installation of macOS Sequoia.
-2. **Create Admin Account**: Set up an admin account named `Office TV` with a secure password for the initial setup.
+## Installation Steps
 
-## Configuration Steps
+### 1. Perform a Clean Install of macOS
+   - Wipe the Mac and perform a fresh installation of **macOS Sequoia**.
 
-### 1. Set Up Auto-Login for `Office TV`
-- Enable auto-login for the `Office TV` user account:
-  - **System Preferences > Users & Groups > Login Options**
-  - Set `Office TV` to auto-login.
+### 2. Set Up Initial Admin Account
+   - Create an admin account named **Office TV** with a secure password for setup purposes.
 
-### 2. Disable Notifications
-- **System Preferences > Notifications & Focus**: Turn off all notifications and enable **Do Not Disturb** on a schedule from **6 AM to 5 PM**.
+### 3. Configure Auto-Login for Office TV
+   - Go to **System Preferences > Users & Groups > Login Options**.
+   - Enable auto-login for **Office TV**.
 
-### 3. Schedule Power On and Shut Down
-- Open Terminal and use `pmset` to configure boot and shutdown times:
-  ```bash
-  sudo pmset repeat wakeorpoweron MTWRF 07:30:00 shutdown MTWRF 16:00:00
-### 4. Set Energy Saver Settings
-- Go to **System Preferences > Energy Saver**:
-  - Uncheck **Prevent computer from sleeping automatically when the display is off**.
-  - Set **Display Sleep** to **Never** during active hours.
-  - Enable **Restart automatically after power failure**.
+---
 
-### 5. Add AutoSlideNetCheck as a Login Item
-- Go to **System Preferences > Users & Groups > Login Items** for the `Office TV` account.
-- Add the AutoSlideNetCheck script to automatically launch the presentation on startup.
+## Configuration Details
 
-### 6. Lock System Preferences
-- **System Preferences > Security & Privacy**: Adjust **Accessibility** and **Privacy** settings as needed for AutoSlideNetCheck.
-- Lock **System Preferences** after setup to prevent changes.
+### 4. Disable Notifications
+   - Navigate to **System Preferences > Notifications & Focus** and turn off all notifications.
+   - Enable **Do Not Disturb** on a schedule from **6 AM to 5 PM**.
+
+### 5. Set Scheduled Power On and Off
+   - Open **Terminal** and configure `pmset`:
+     ```bash
+     sudo pmset repeat wakeorpoweron MTWRF 07:30:00 shutdown MTWRF 16:00:00
+     ```
+
+### 6. Adjust Energy Saver Settings
+   - In **System Preferences > Energy Saver**:
+     - Uncheck **Prevent computer from sleeping automatically when the display is off**.
+     - Set **Display Sleep** to **Never** during active hours.
+     - Enable **Restart automatically after power failure**.
+
+### 7. Add AutoSlideNetCheck Script as a Login Item
+   - Go to **System Preferences > Users & Groups > Login Items** under the **Office TV** account.
+   - Add the **AutoSlideNetCheck** script to launch on login.
+
+### 8. Lock System Preferences
+   - Adjust **Accessibility** and **Privacy** settings as required by **AutoSlideNetCheck** in **System Preferences > Security & Privacy**.
+   - Lock **System Preferences** after configuration to prevent changes.
+
+---
 
 ## System Reliability Enhancements
+1. **Enable Auto Power Recovery**: Ensures the Mac restarts automatically after a power failure.
+2. **AutoSlideNetCheck Retry Logic**: The script includes a retry mechanism to verify internet connectivity.
 
-1. **Auto Power Recovery**: Ensure the Mac will restart automatically after a power failure.
-2. **AutoSlideNetCheck Retry Logic**: The script includes retry logic to check for internet connectivity.
+---
 
 ## Final Steps
 
-1. **Convert `Office TV` Account to Standard**:
-   - Set up a separate admin account if needed.
-   - Convert `Office TV` to a standard account for security: **System Preferences > Users & Groups > Change Role to Standard**.
+### Convert Office TV to a Standard User Account
+   - If needed, create a new admin account.
+   - Go to **System Preferences > Users & Groups** and change **Office TV** to a **Standard** account for security.
 
-## Usage
+---
 
-1. Once the setup is complete, simply restart the Mac, and the AutoSlideNetCheck script will check for internet connection and launch the presentation automatically.
-2. If no internet connection is available after retries, a dialog will prompt the user to check the network connection.
+## Usage Instructions
+1. Restart the Mac to begin using **AutoSlideNetCheck**.
+2. The script will check internet connectivity and automatically open the Google Slides presentation in full screen.
+3. If there is no internet after several retries, a notification will alert you to check the network.
+
+---
 
 ## Contributing
-
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see the [**CONTRIBUTING.md**](CONTRIBUTING.md) file for details.
 
 ## License
-
-This project is licensed under the MIT License. See `LICENSE` for details.
+This project is licensed under the **MIT License**. See the [**LICENSE**](LICENSE) file for full details.
 
 ## Acknowledgments
-
-Special thanks to OpenAI for their support and resources in setting up this project.
+Special thanks to [Your Team/Institution] for their support in developing this setup guide.
