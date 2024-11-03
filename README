@@ -11,7 +11,8 @@ This guide provides a complete setup for running the **AutoSlideNetCheck** scrip
 *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
 *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
 
-***Variables that bust be changed to for each setup:
+Variables that must be changed to for each setup:
+
 slideURL in AutoSlideNetCheck.scpt.
 APP_PATH in install_auto_slide.sh
 
