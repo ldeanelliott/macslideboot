@@ -1,159 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoSlideNetCheck Setup Guide</title>
-</head>
-<body>
-    <h1>AutoSlideNetCheck Setup Guide</h1>
+# AutoSlideNetCheck Setup Guide
 
-    <p>This guide provides a complete setup for running the <strong>AutoSlideNetCheck</strong> script on a Mac with a fresh installation of macOS Sequoia. This setup is ideal for an office or display device that should automatically log in, run a Google Slides presentation in full-screen mode, and check for internet connectivity.</p>
+This guide provides a complete setup for running the **AutoSlideNetCheck** script on a Mac with a fresh installation of macOS Sequoia. This setup is ideal for an office or display device that should automatically log in, run a Google Slides presentation in full-screen mode, and check for internet connectivity.
 
-    <h2>Requirements</h2>
-    <ul>
-        <li>A Mac running macOS Sequoia.</li>
-        <li>User account <strong>"Office TV"</strong> for the display machine.</li>
-        <li>Google Chrome installed (assumed included in the JAMF profile).</li>
-    </ul>
+## Requirements
+- A Mac running macOS Sequoia.
+- User account **"Office TV"** for the display machine.
+- Google Chrome installed (assumed included in the JAMF profile).
 
-    <hr>
+---
 
-    <h2>Installation</h2>
+## Installation
 
-    <h3>1. Run the Installation Script (Recommended)</h3>
+### 1. Run the Installation Script (Recommended)
 
-    <p>To streamline the setup process, use the provided installation script. This script automates configuration steps like scheduling power on/off times, enabling auto-login, setting notifications, and adding the AutoSlideNetCheck script as a login item.</p>
+To streamline the setup process, use the provided installation script. This script automates configuration steps like scheduling power on/off times, enabling auto-login, setting notifications, and adding the AutoSlideNetCheck script as a login item.
 
-    <p><strong>Script:</strong> <a href="install_auto_slide.sh">install_auto_slide.sh</a></p>
+**Script:** [install_auto_slide.sh](install_auto_slide.sh)
 
-    <h4>Run the script:</h4>
-    <ol>
-        <li>Save the script on your Mac, naming it <code>install_auto_slide.sh</code>.</li>
-        <li>Make the script executable by opening a terminal and running:
-            <pre><code>chmod +x install_auto_slide.sh</code></pre>
-        </li>
-        <li>Run the script with sudo privileges:
-            <pre><code>sudo ./install_auto_slide.sh</code></pre>
-        </li>
-    </ol>
+#### Run the script:
+1. Save the script on your Mac, naming it `install_auto_slide.sh`.
+2. Make the script executable by opening a terminal and running:
+   ```bash
+   chmod +x install_auto_slide.sh
+Run the script with sudo privileges:
+bash
+Copy code
+sudo ./install_auto_slide.sh
+The script will automatically:
 
-    <p>The script will automatically:</p>
-    <ul>
-        <li>Schedule power on/off for weekdays (7:30 AM on, 4:00 PM off).</li>
-        <li>Set up auto-login for the <strong>Office TV</strong> user.</li>
-        <li>Disable notifications and configure Do Not Disturb hours.</li>
-        <li>Add <strong>AutoSlideNetCheck</strong> as a login item.</li>
-        <li>Configure Energy Saver settings and lock certain System Preferences.</li>
-    </ul>
+Schedule power on/off for weekdays (7:30 AM on, 4:00 PM off).
+Set up auto-login for the Office TV user.
+Disable notifications and configure Do Not Disturb hours.
+Add AutoSlideNetCheck as a login item.
+Configure Energy Saver settings and lock certain System Preferences.
+2. Manual Configuration Steps (In Case of Script Errors)
+If any issues arise with the script, you can perform each configuration step manually. Below are detailed explanations of each step in the process.
 
-    <hr>
+Step 1: Set Scheduled Power On and Shutdown Times
+Command:
 
-    <h3>2. Manual Configuration Steps (In Case of Script Errors)</h3>
+bash
+Copy code
+sudo pmset repeat wakeorpoweron MTWRF 07:30:00 shutdown MTWRF 16:00:00
+This command configures the Mac to automatically power on at 7:30 AM and shut down at 4:00 PM on weekdays (Monday through Friday).
 
-    <p>If any issues arise with the script, you can perform each configuration step manually. Below are detailed explanations of each step in the process.</p>
+Step 2: Enable Auto-Login for "Office TV" User
+Enable auto-login to the Office TV user account to ensure that the presentation starts without manual login.
 
-    <h4><strong>Step 1:</strong> Set Scheduled Power On and Shutdown Times</h4>
+Command:
 
-    <p><strong>Command:</strong></p>
-    <pre><code>sudo pmset repeat wakeorpoweron MTWRF 07:30:00 shutdown MTWRF 16:00:00</code></pre>
+bash
+Copy code
+sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser "Office TV"
+Step 3: Disable Notifications and Set Do Not Disturb
+This disables all notifications to prevent interruptions during presentation mode.
 
-    <p>This command configures the Mac to automatically power on at <strong>7:30 AM</strong> and shut down at <strong>4:00 PM</strong> on weekdays (Monday through Friday).</p>
+Commands:
 
-    <h4><strong>Step 2:</strong> Enable Auto-Login for "Office TV" User</h4>
-
-    <p>Enable auto-login to the <strong>Office TV</strong> user account to ensure that the presentation starts without manual login.</p>
-
-    <p><strong>Command:</strong></p>
-    <pre><code>sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser "Office TV"</code></pre>
-
-    <h4><strong>Step 3:</strong> Disable Notifications and Set Do Not Disturb</h4>
-
-    <p>This disables all notifications to prevent interruptions during presentation mode.</p>
-
-    <p><strong>Commands:</strong></p>
-    <ol>
-        <li>Enable Do Not Disturb:
-            <pre><code>defaults -currentHost write com.apple.notificationcenterui doNotDisturb -bool true</code></pre>
-        </li>
-        <li>Set Do Not Disturb hours (e.g., 6 AM - 5 PM):
-            <pre><code>
+Enable Do Not Disturb:
+bash
+Copy code
+defaults -currentHost write com.apple.notificationcenterui doNotDisturb -bool true
+Set Do Not Disturb hours (e.g., 6 AM - 5 PM):
+bash
+Copy code
 defaults write com.apple.ncprefs.plist dndStart -int 360  # 6 AM in minutes
 defaults write com.apple.ncprefs.plist dndEnd -int 1020   # 5 PM in minutes
-            </code></pre>
-        </li>
-        <li>Restart NotificationCenter to apply changes:
-            <pre><code>killall NotificationCenter</code></pre>
-        </li>
-    </ol>
+Restart NotificationCenter to apply changes:
+bash
+Copy code
+killall NotificationCenter
+Step 4: Add AutoSlideNetCheck Script to Login Items
+Ensure that AutoSlideNetCheck runs at login by adding it as a login item.
 
-    <h4><strong>Step 4:</strong> Add AutoSlideNetCheck Script to Login Items</h4>
+Command:
 
-    <p>Ensure that <strong>AutoSlideNetCheck</strong> runs at login by adding it as a login item.</p>
-
-    <p><strong>Command:</strong></p>
-    <pre><code>
+bash
+Copy code
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/path/to/AutoSlideNetCheck.applescript", hidden:true}'
-    </code></pre>
-    <p><em>Replace <code>/path/to/AutoSlideNetCheck.applescript</code> with the actual path to the <strong>AutoSlideNetCheck</strong> script.</em></p>
+Replace /path/to/AutoSlideNetCheck.applescript with the actual path to the AutoSlideNetCheck script.
 
-    <h4><strong>Step 5:</strong> Configure Energy Saver Settings</h4>
+Step 5: Configure Energy Saver Settings
+Prevent the Mac from sleeping during active hours, and set it to automatically restart after a power failure.
 
-    <p>Prevent the Mac from sleeping during active hours, and set it to automatically restart after a power failure.</p>
+Commands:
 
-    <p><strong>Commands:</strong></p>
-    <ol>
-        <li>Set the display to never sleep:
-            <pre><code>sudo pmset -a displaysleep 0</code></pre>
-        </li>
-        <li>Enable auto-restart after power failure:
-            <pre><code>sudo pmset -a autorestart 1</code></pre>
-        </li>
-        <li>Prevent the Mac from sleeping when the display is off:
-            <pre><code>sudo pmset -a sleep 0</code></pre>
-        </li>
-    </ol>
+Set the display to never sleep:
+bash
+Copy code
+sudo pmset -a displaysleep 0
+Enable auto-restart after power failure:
+bash
+Copy code
+sudo pmset -a autorestart 1
+Prevent the Mac from sleeping when the display is off:
+bash
+Copy code
+sudo pmset -a sleep 0
+Step 6: Lock System Preferences for Security
+Lock Accessibility and Privacy settings to prevent unauthorized changes.
 
-    <h4><strong>Step 6:</strong> Lock System Preferences for Security</h4>
+Commands:
 
-    <p>Lock Accessibility and Privacy settings to prevent unauthorized changes.</p>
-
-    <p><strong>Commands:</strong></p>
-    <pre><code>
+bash
+Copy code
 sudo security authorizationdb write system.preferences "allow"
 sudo security authorizationdb write system.preferences.security "allow"
-    </code></pre>
+Final Step: Convert Office TV User to Standard
+After configuration, convert the Office TV user account to a Standard account for security.
 
-    <h4><strong>Final Step:</strong> Convert Office TV User to Standard</h4>
+Command:
 
-    <p>After configuration, convert the <strong>Office TV</strong> user account to a Standard account for security.</p>
+bash
+Copy code
+sudo dseditgroup -o edit -d "Office TV" -t user admin
+Troubleshooting
+If you encounter any issues with the setup:
 
-    <p><strong>Command:</strong></p>
-    <pre><code>sudo dseditgroup -o edit -d "Office TV" -t user admin</code></pre>
+Check Console Logs: Use the Console app to look for error messages related to the script or scheduled tasks.
+Verify Permissions: Ensure that the script and configuration commands are executed with the necessary permissions.
+Restart Mac: Sometimes, changes may require a system restart to take full effect.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-    <hr>
+Contributing
+We welcome contributions to improve this setup guide. Please open a pull request if you have suggestions or fixes.
 
-    <h2>Troubleshooting</h2>
-    <p>If you encounter any issues with the setup:</p>
-    <ol>
-        <li><strong>Check Console Logs:</strong> Use the Console app to look for error messages related to the script or scheduled tasks.</li>
-        <li><strong>Verify Permissions:</strong> Ensure that the script and configuration commands are executed with the necessary permissions.</li>
-        <li><strong>Restart Mac:</strong> Sometimes, changes may require a system restart to take full effect.</li>
-    </ol>
-
-    <hr>
-
-    <h2>License</h2>
-    <p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
-
-    <hr>
-
-    <h2>Contributing</h2>
-    <p>We welcome contributions to improve this setup guide. Please open a pull request if you have suggestions or fixes.</p>
-
-    <hr>
-
-    <h2>Support</h2>
-    <p>For further assistance, open an issue in this repository, and we’ll do our best to help.</p>
-</body>
-</html>
+Support
+For further assistance, open an issue in this repository, and we’ll do our best to help.
