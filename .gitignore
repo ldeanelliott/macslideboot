@@ -29,3 +29,29 @@ __pycache__/
 # AutoSlideNetCheck script logs (customize if applicable)
 *.log
 *.cache
+
+# Python virtual environments
+venv/
+.env
+*.egg-info/
+
+# Backup files
+*~
+*.bak
+
+# IDE specific files
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+
+# Logs
+*.log
+
+# Node.js dependencies (if applicable)
+node_modules/
+npm-debug.log
+
+# Other temporary files
+Thumbs.db
+ehthumbs.db
